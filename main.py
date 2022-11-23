@@ -20,6 +20,6 @@ if __name__ == "main":
     with open('out.csv', 'w', encoding= 'utf-8') as f:
         f.write('date,user,is_retweet,is_quote,text,quoted_text\n')
     
-    tags = ["hate speech"]
+    tags = ["fifa worldcup 2022"]
     stream.filter(track=tags)
 

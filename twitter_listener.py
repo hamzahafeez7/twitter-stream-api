@@ -1,8 +1,8 @@
-import tweepy
+from tweepy import Stream
 import sys
 
 #Inheriting class from Tweepy.StreamListener and override (on_status, on_error) methods
-class StreamListener(tweepy.StreamListener):
+class StreamListener(Stream):
     def on_status(self, status): 
         print(status.id_str)
 
