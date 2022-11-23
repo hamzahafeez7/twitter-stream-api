@@ -1,9 +1,8 @@
 import tweepy as tw
 import pandas as pd
-from datetime import datetime
+import utils as ut
 
-UTC = datetime.utcnow().strftime("%Y-%m-%d_%H-%M-%S")
-FILENAME = "twitter_stream_" + str(UTC) + ".csv"
+FILE_PREFIX = "twitter_stream" 
 
 # API key and API secret
 my_api_key = "2T3RpBLMfFXUf7wguQadbyaQm"
@@ -16,7 +15,7 @@ api = tw.API(auth, wait_on_rate_limit=True)
 
 
 #Search query definition 
-search_query = "#worldcup2022 -filter:retweets"
+search_query = "#worldcup2022"
 
 
 tweets= tw.Cursor(api.search_tweets, q=search_query, lang='en', since='2022-11-12').items(50)
@@ -41,25 +40,24 @@ for tweet in tweets_list:
     try:
         for hashtag in tweet.entities["hashtags"]:
             hashtag.append(hashtag['text'])
-        text = api.get_status(id=tweet.id, tweet_mode = 'extended').full_text
-    except:
+        text = api.get_status(id=tweet.id, tweet_mode='extended').full_text
+    except Exception as err:
         print("Error reading hashtags")
+        print(err)
         pass
 
     tweets_df = tweets_df.append(pd.DataFrame({'user_name': tweet.user.name,
         'user_location': tweet.user.location,
         'user_description': tweet.user.description, 
         'user_verified': tweet.user.verified,
-        'text': text, 
+        'text': tweet.text, 
         'hastags': [hashtags if hashtags else None],
         'source': tweet.source}))
     tweets_df = tweets_df.reset_index(drop =True)
 
+ut.df_to_csv(tweets_df, FILE_PREFIX)
+
+
+
 # print(tweets_df.head())
 
-try:
-    tweets_df.to_csv(FILENAME)
-    print("Twitter feed written to file" + str(FILENAME))
-except Exception as error:
-    print("Unable to write dataframe to CSV ")
-    print(error)
