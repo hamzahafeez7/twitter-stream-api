@@ -1,8 +1,8 @@
-from tweepy import Stream
+from tweepy import StreamListener
 import sys
 
 #Inheriting class from Tweepy.StreamListener and override (on_status, on_error) methods
-class StreamListener(Stream):
+class StreamListener(StreamListener):
     def on_status(self, status): 
         print(status.id_str)
 
@@ -36,8 +36,5 @@ class StreamListener(Stream):
 
     def on_error(self, status_code):
         print("Encountered streaming error (", status_code, ")")
+        print()
         sys.exit()
-
-
-
-        

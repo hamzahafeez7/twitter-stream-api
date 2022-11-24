@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 
 #Adding secrets
-secrets.py
+def_secrets.py
+def_secrets.py
