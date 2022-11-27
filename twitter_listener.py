@@ -9,11 +9,15 @@ class StreamListener(StreamListener):
         #Flagging tweets as retweet  in case "retweet_status" exists in tweet input
         is_retweet = hasattr(status, "retweeted_status")
 
+        print('On Status - SET')
+
         #Check for full text if extended tweet
         if hasattr(status, "extended_tweet"):
             text = status.extended_tweet['full_text']
+            print('On Status -> Extended Tweet - IF')
         else:
             text = status.text
+            print('On Status -> Extended Tweet - ELSE')
 
         # check if this is a quote tweet.
         is_quote = hasattr(status, "quoted_status")
@@ -22,8 +26,10 @@ class StreamListener(StreamListener):
             # check if quoted tweet's text has been truncated before recording it
             if hasattr(status.quoted_status,"extended_tweet"):
                 quoted_text = status.quoted_status.extended_tweet["full_text"]
+                print('On Status -> Extended Tweet -> Is_Quote - IF')
             else:
                 quoted_text = status.quoted_status.text
+                print('On Status -> Extended Tweet -> Is_Quote - ELSE')
 
         # remove characters that might cause problems with csv encoding
         remove_characters = [",","\n"]
@@ -32,6 +38,7 @@ class StreamListener(StreamListener):
             quoted_text.replace(c, " ")
 
         with open("out.csv", "a", encoding='utf-8') as f:
+            print('Writing data into output stream')
             f.write("%s,%s,%s,%s,%s,%s\n" % (status.created_at,status.user.screen_name,is_retweet,is_quote,text,quoted_text))
 
     def on_error(self, status_code):

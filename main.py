@@ -19,7 +19,7 @@ def main():
 
     with open('out.csv', 'w', encoding= 'utf-8') as f:
         f.write('date,user,is_retweet,is_quote,text,quoted_text\n')
-        print('Writing data into output stream')
+        print('Header written for CSV')
     
     tags = ["fifa worldcup 2022"]
 
