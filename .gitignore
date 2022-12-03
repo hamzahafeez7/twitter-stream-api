@@ -161,3 +161,8 @@ cython_debug/
 
 #Adding secrets
 *secrets.py
+
+
+#Ignore all data files
+*.csv
+*.parquet
