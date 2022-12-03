@@ -1,35 +1,30 @@
-from tweepy import OAuthHandler, API, Stream
-from twitter_listener import StreamListener
+import os
+# from tweepy import OAuthHandler, API, Stream
+# from twitter_listener import StreamListener
+from tweepy import StreamRule
+from twitter_client import StreamingClient
 from def_secrets import consumer_key, consumer_secret, access_key, access_secret
 from utils import UTC
+from dotenv import load_dotenv
 
 FILENAME = 'stream_listen_output_' + str(UTC) + '.csv'
+load_dotenv()
+bearer_token  = os.environ["BEARER_TOKEN"]
+
+# consumer_key = os.environ["API_KEY"]
+# consumer_secret = os.environ["API_KEY_SECRET"]
+# access_token = os.environ["ACCESS_TOKEN"]
+# access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
+
 
 def main():
-    print('Started Main Def')
-    auth  = OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_key, access_secret)
-
-    api = API(auth)
-
-    #Instantiate Stream Object
-    streamListener = StreamListener()
-
-    stream = Stream(auth = api.auth, listener = streamListener, tweet_mode = 'extended')
-
-    with open('out.csv', 'w', encoding= 'utf-8') as f:
-        f.write('date,user,is_retweet,is_quote,text,quoted_text\n')
-        print('Header written for CSV')
-    
-    tags = ["fifa worldcup 2022"]
-
+    streamer = StreamingClient(bearer_token)
+    streamer.add_rules(StreamRule("(formula 1) OR f1 OR formula1 lang:en"))
 
     try:
-        stream.filter(track=tags)
+        streamer.filter()
     except Exception as err:
-        print('Failed to run stream')
-        print(err)
-    print('End of business')
+        print("Exception Raised - Error" + str(err))
 
 
 if __name__ == "__main__":
