@@ -4,11 +4,8 @@ from tweepy import OAuth1UserHandler, API, Stream
 from tweepy import StreamRule
 from twitter_client import Streaming
 # from def_secrets import consumer_key, consumer_secret, access_key, access_secret
-from utils import UTC
 from dotenv import load_dotenv
 
-
-FILENAME = 'stream_listen_output_' + str(UTC) + '.csv'
 load_dotenv()
 
 bearer_token  = str(os.environ["BEARER_TOKEN"])
@@ -24,7 +21,8 @@ def main():
 
     # api = API(auth)
     streamer = Streaming(bearer_token)    
-    streamer.add_rules(StreamRule("f1 OR (formula 1) OR formula1 lang:en"))
+    # streamer.add_rules(StreamRule("f1 OR (formula 1) OR formula1 lang:en"))
+    streamer.add_rules(StreamRule("f1 OR formula1 lang:en"))
 
     try:
         streamer.filter()
