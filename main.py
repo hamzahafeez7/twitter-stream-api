@@ -21,7 +21,8 @@ def main():
 
     # api = API(auth)
     streamer = Streaming(bearer_token)    
-    streamer.add_rules(StreamRule("f1 OR (formula 1) OR formula1 lang:en"))
+    # streamer.add_rules(StreamRule("f1 OR (formula 1) OR formula1 lang:en"))
+    streamer.add_rules(StreamRule("f1 OR formula1 lang:en"))
 
     try:
         streamer.filter()
