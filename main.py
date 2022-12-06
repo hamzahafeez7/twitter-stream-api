@@ -2,7 +2,7 @@ import os
 from tweepy import OAuth1UserHandler, API, Stream
 # from twitter_listener import StreamListener
 from tweepy import StreamRule
-from twitter_client import StreamingClient
+from twitter_client import Streaming
 # from def_secrets import consumer_key, consumer_secret, access_key, access_secret
 from utils import UTC
 from dotenv import load_dotenv
@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 FILENAME = 'stream_listen_output_' + str(UTC) + '.csv'
 load_dotenv()
 
-bearer_token  = os.environ["BEARER_TOKEN"]
+bearer_token  = str(os.environ["BEARER_TOKEN"])
 # consumer_key = os.environ["API_KEY"]
 # consumer_secret = os.environ["API_KEY_SECRET"]
 # access_token = os.environ["ACCESS_TOKEN"]
@@ -23,12 +23,12 @@ def main():
     # )
 
     # api = API(auth)
-    streamer = StreamingClient(str(bearer_token))    
+    streamer = Streaming(bearer_token)    
     streamer.add_rules(StreamRule("f1 OR (formula 1) OR formula1 lang:en"))
-
 
     try:
         streamer.filter()
+
     except Exception as err:
         print("Exception Raised - Error" + str(err))
 
