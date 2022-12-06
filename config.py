@@ -1,4 +1,7 @@
 #Execution Time - Seconds
-EXEC_TIME_SECS=5
+stream_runtime=10
 
 search_terms = ['formula 1', 'f1', 'formula1']
+
+#Directory to store files
+file_prefix = 'ingestions/'
