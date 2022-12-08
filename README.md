@@ -14,3 +14,11 @@ Read the [methodology page](https://github.com/hamzahafeez7/twitter-stream-api/w
 Feel free to provide your feedback on the project. 
 
 Thanks for visiting this repository.
+
+### Pre-requisites & Constraints
+Following are the pre-requisites required to run the application
+* Twitter applcation created using Twitter development portal
+* Credentials to access Twitter application with Read/Write Permissions
+* Python 3.8+ Installed
+
+Currently, the application has only been tested with Winodws.
