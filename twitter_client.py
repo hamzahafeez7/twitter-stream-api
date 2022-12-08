@@ -1,11 +1,13 @@
 import os
 import tweepy
 import datetime
-from config import stream_runtime, file_prefix
+from config import stream_runtime, file_prefix, error_prefix
 import pandas as pd
 from utils import UTC
+import logging
 
 FILENAME = file_prefix + 'twitter_stream_' + str(UTC) + '.csv'
+ERROR_LOG_FILENAME = error_prefix + 'errors_twitter_stream_' + str(UTC) + '.csv'
 class Streaming(tweepy.StreamingClient):
     
     def __init__(self,*args, **kwargs):
@@ -44,7 +46,8 @@ class Streaming(tweepy.StreamingClient):
             self.tweets_df = self.tweets_df.append(tweet_data, ignore_index = True)            
             self.iterator += 1 
 
-    # def on_errors(self, errors):
-    #     print(errors)
+    def on_errors(self, errors):
+        print(errors.code)
+        print(errors.message)
     
 
