@@ -22,3 +22,18 @@ Following are the pre-requisites required to run the application
 * Python 3.8+ Installed
 
 Currently, the application has only been tested with Winodws.
+
+### Running the Application (Needs to be refined)
+
+* Clone the Git repository 
+* Navigate to home directory of project
+* Run "pip install -r requirements.txt"
+* Create a .env file and add your credentials as given below
+* Run main.py uisng active python runtime
+
+**.ENV File Format**
+API_KEY=""
+API_KEY_SECRET=""
+ACCESS_TOKEN=""
+ACCESS_TOKEN_SECRET=""
+BEARER_TOKEN=""
