@@ -30,11 +30,11 @@ class Streaming(tweepy.StreamingClient):
         print('Connected to Twitter Stream API.')
 
     def on_tweet(self, tweet):
-        
-        # print(tweet.id)
-        # print(tweet.text)
-        # print(tweet.created_at)
-        # print('==========================')
+        print("========Tweet Streamed=========")        
+        print('Twitter ID: ' + str(tweet.id))
+        print('Tweet:' + str(tweet.text))
+        print('Created At:' + str(tweet.created_at))
+        print('===============================')
 
         #Ensuring the stream runs for the specified time only
         if datetime.datetime.now() > self.stop_time:
@@ -50,8 +50,10 @@ class Streaming(tweepy.StreamingClient):
             self.iterator += 1 
 
     def on_errors(self, errors):
-        print(errors.code)
-        print(errors.message)
+        print("========Streaming Error=========")
+        print('Error Code: ' + str(errors.code))
+        print('Error Message: ' + str(errors.message))
+        print("================================")
         error_data = {'time_utc': str(UTC), 'error_code': errors.code, 'text': errors.messages}
         self.errors_df = self.errors_df.append(error_data, ignore_index = True)
         print('Errors to be printed to file' + str(ERROR_LOG_FILENAME))
