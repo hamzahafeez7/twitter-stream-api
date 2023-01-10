@@ -49,5 +49,7 @@ class Streaming(tweepy.StreamingClient):
     def on_errors(self, errors):
         print(errors.code)
         print(errors.message)
+        print('Errors to be printed to file' + str(ERROR_LOG_FILENAME))
+
     
 

@@ -1,8 +1,9 @@
 #Execution Time - Minutes 
-stream_runtime=60
+stream_runtime=1
 
 search_terms = ['formula 1', 'f1', 'formula1']
 
 #Directory to store files
 file_prefix = 'ingestions/'
 logs_prefix = 'logs/'
+error_prefix = 'errors/'
